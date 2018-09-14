@@ -156,7 +156,7 @@ export default class Formatter {
         //if (this.inlineBlock.isActive()) {
         //    return query;
         //}
-        else if (/^LIMIT$/i.test(this.previousReservedWord.value)) {
+        /*else*/ if (/^LIMIT$/i.test(this.previousReservedWord.value)) {
             return query;
         }
         else {
