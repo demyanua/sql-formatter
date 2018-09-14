@@ -14,7 +14,7 @@ export default class Formatter {
     constructor(cfg, tokenizer) {
         this.cfg = cfg || {};
         this.indentation = new Indentation(this.cfg.indent);
-        this.inlineBlock = new InlineBlock();
+        //this.inlineBlock = new InlineBlock();
         this.params = new Params(this.cfg.params);
         this.tokenizer = tokenizer;
         this.previousReservedWord = {};
@@ -124,25 +124,25 @@ export default class Formatter {
         }
         query += tokens[index].value;
 
-        this.inlineBlock.beginIfPossible(tokens, index);
+        //this.inlineBlock.beginIfPossible(tokens, index);
 
-        if (!this.inlineBlock.isActive()) {
+        //if (!this.inlineBlock.isActive()) {
             this.indentation.increaseBlockLevel();
             query = this.addNewline(query);
-        }
+        //}
         return query;
     }
 
     // Closing parentheses decrease the block indent level
     formatClosingParentheses(token, query) {
-        if (this.inlineBlock.isActive()) {
-            this.inlineBlock.end();
-            return this.formatWithSpaceAfter(token, query);
-        }
-        else {
+        //if (this.inlineBlock.isActive()) {
+        //    this.inlineBlock.end();
+        //    return this.formatWithSpaceAfter(token, query);
+        //}
+        //else {
             this.indentation.decreaseBlockLevel();
             return this.formatWithSpaces(token, this.addNewline(query));
-        }
+        //}
     }
 
     formatPlaceholder(token, query) {
@@ -153,9 +153,9 @@ export default class Formatter {
     formatComma(token, query) {
         query = trimEnd(query) + token.value + " ";
 
-        if (this.inlineBlock.isActive()) {
-            return query;
-        }
+        //if (this.inlineBlock.isActive()) {
+        //    return query;
+        //}
         else if (/^LIMIT$/i.test(this.previousReservedWord.value)) {
             return query;
         }
